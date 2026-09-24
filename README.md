@@ -24,6 +24,10 @@
 
 На Windows: `gradlew.bat :EssentialsX:build`. На Linux/macOS: `./gradlew :EssentialsX:build`. Готовый JAR находится в `jars/`.
 
+GitHub Actions автоматически собирает все девять модулей при каждом push в `2.x` или `dev/*`. Pull request в `2.x` также проверяется сборкой. JAR-файлы доступны в артефакте `EssentialsX plugin jars` соответствующего запуска.
+
+После успешной сборки push в `2.x` создаётся предварительный GitHub Release. В нём лежат отдельные JAR-файлы всех девяти модулей, общий архив `EssentialsX-all-jars.zip` и `SHA256SUMS.txt`. Тег имеет вид `build-<номер запуска>-<короткий хеш>`. Сборка веток `dev/*` и pull request не публикует релиз.
+
 Для переноса новых изменений EssentialsX сначала сохраните правки форка отдельным коммитом и добавьте официальный репозиторий как `upstream`:
 
 ```bash
