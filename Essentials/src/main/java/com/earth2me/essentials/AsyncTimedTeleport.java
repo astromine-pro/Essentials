@@ -169,11 +169,10 @@ public class AsyncTimedTeleport implements Runnable {
         }
 
         final String duration = seconds + " " + teleportUser.playerTl(seconds == 1 ? "second" : "seconds");
-        if (ess.getSettings().isTeleportCountdownChatEnabled()) {
-            teleportUser.sendTl("teleportCountdown", seconds, duration);
-        }
         if (ess.getSettings().isTeleportCountdownActionBarEnabled()) {
-            final String message = ess.getAdventureFacet().miniToLegacy(teleportUser.playerTl("teleportCountdown", seconds, duration));
+            final long lastTwoDigits = seconds % 100;
+            final long secondForm = lastTwoDigits >= 11 && lastTwoDigits <= 14 ? 0 : seconds % 10;
+            final String message = ess.getAdventureFacet().miniToLegacy(teleportUser.playerTl("teleportCountdown", seconds, duration, secondForm));
             teleportUser.getBase().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
             countdownActionBarShown = true;
         }

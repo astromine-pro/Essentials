@@ -318,11 +318,6 @@ public class Settings implements net.ess3.api.ISettings {
     }
 
     @Override
-    public boolean isTeleportCountdownChatEnabled() {
-        return config.getBoolean("teleport-countdown-chat", true);
-    }
-
-    @Override
     public boolean isTeleportCountdownActionBarEnabled() {
         return config.getBoolean("teleport-countdown-action-bar", true);
     }

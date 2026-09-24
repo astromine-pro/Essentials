@@ -118,7 +118,6 @@ teleport-cooldown: 0
 # The delay, in seconds, before a player actually teleports.
 # If the player moves or gets attacked in this timeframe, the teleport is cancelled.
 teleport-delay: 0
-teleport-countdown-chat: true
 teleport-countdown-action-bar: true
 
 # The delay, in seconds, during which a player can't be attacked by other players after being teleported by a command.
