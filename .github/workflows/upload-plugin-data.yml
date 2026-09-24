@@ -7,6 +7,7 @@ on:
 jobs:
   data:
     name: Generate and Upload
+    if: github.repository == 'EssentialsX/Essentials'
     runs-on: ubuntu-latest
 
     steps:
