@@ -1,6 +1,5 @@
 package com.earth2me.essentials;
 
-import net.ess3.api.MaxMoneyException;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.AfterEach;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class UserTest {
     private PlayerMock base1;
@@ -33,10 +31,6 @@ public class UserTest {
     @AfterEach
     public void tearEach() {
         MockBukkit.unmock();
-    }
-
-    private void should(final String what) {
-        System.out.println("UserTest should " + what);
     }
 
     @Test
@@ -65,20 +59,9 @@ public class UserTest {
     }
 
     @Test
-    public void testMoney() {
-        should("properly set, take, give, and get money");
+    public void testEconomyDisabled() throws Exception {
         final User user = ess.getUser(base1);
-        BigDecimal i = new BigDecimal("100.5");
-        try {
-            user.setMoney(i);
-            user.takeMoney(new BigDecimal(50));
-            i = i.subtract(BigDecimal.valueOf(50));
-            user.giveMoney(new BigDecimal(25));
-            i = i.add(BigDecimal.valueOf(25));
-        } catch (final MaxMoneyException ex) {
-            fail();
-        }
-
-        assertEquals(user.getMoney(), i);
+        user.setMoney(new BigDecimal("100.5"));
+        assertEquals(BigDecimal.ZERO, user.getMoney());
     }
 }

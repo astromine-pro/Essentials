@@ -102,6 +102,9 @@ public class AsyncTeleport implements IAsyncTeleport {
     }
 
     private void warnUser(final IUser user, final double delay) {
+        if (ess.getSettings().isTeleportCountdownChatEnabled()) {
+            return;
+        }
         final Calendar c = new GregorianCalendar();
         c.add(Calendar.SECOND, (int) delay);
         c.add(Calendar.MILLISECOND, (int) ((delay * 1000.0) % 1000.0));

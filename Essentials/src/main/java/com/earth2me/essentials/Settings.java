@@ -318,6 +318,16 @@ public class Settings implements net.ess3.api.ISettings {
     }
 
     @Override
+    public boolean isTeleportCountdownChatEnabled() {
+        return config.getBoolean("teleport-countdown-chat", true);
+    }
+
+    @Override
+    public boolean isTeleportCountdownActionBarEnabled() {
+        return config.getBoolean("teleport-countdown-action-bar", true);
+    }
+
+    @Override
     public int getOversizedStackSize() {
         return config.getInt("oversized-stacksize", 64);
     }
@@ -777,7 +787,7 @@ public class Settings implements net.ess3.api.ISettings {
 
     @Override
     public String getNewPlayerKit() {
-        return config.getString("newbies.kit", "");
+        return "";
     }
 
     @Override
@@ -1103,7 +1113,7 @@ public class Settings implements net.ess3.api.ISettings {
     }
 
     public boolean _isEcoDisabled() {
-        return config.getBoolean("disable-eco", false);
+        return true;
     }
 
     @Override

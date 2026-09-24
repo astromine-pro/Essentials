@@ -28,8 +28,6 @@ import com.earth2me.essentials.commands.NoChargeException;
 import com.earth2me.essentials.commands.NotEnoughArgumentsException;
 import com.earth2me.essentials.commands.PlayerNotFoundException;
 import com.earth2me.essentials.commands.QuietAbortException;
-import com.earth2me.essentials.economy.EconomyLayers;
-import com.earth2me.essentials.economy.vault.VaultEconomyProvider;
 import com.earth2me.essentials.items.AbstractItemDb;
 import com.earth2me.essentials.items.CustomItemResolver;
 import com.earth2me.essentials.items.FlatItemDb;
@@ -130,7 +128,6 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
@@ -188,24 +185,9 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     private transient UpdateChecker updateChecker;
     private transient AdventureFacet adventureFacet;
 
-    static {
-        EconomyLayers.init();
-    }
-
     @Override
     public ISettings getSettings() {
         return settings;
-    }
-
-    @Override
-    public void onLoad() {
-        try {
-            // Vault registers their Essentials provider at low priority, so we have to use normal priority here
-            Class.forName("net.milkbowl.vault.economy.Economy");
-            getServer().getServicesManager().register(net.milkbowl.vault.economy.Economy.class, new VaultEconomyProvider(this), this, ServicePriority.Normal);
-        } catch (final ClassNotFoundException ignored) {
-            // Probably safer than fetching for the plugin as bukkit may not have marked it as enabled at this point in time
-        }
     }
 
     @Override
@@ -326,9 +308,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
             jails = new Jails(this);
             confList.add(jails);
             execTimer.mark("Init(Jails)");
-
-            EconomyLayers.onEnable(this);
-            execTimer.mark("Init(EconomyLayers)");
 
             // Spawner item provider only uses one, but it's here for legacy...
             providerFactory.registerProvider(BlockMetaSpawnerItemProvider.class);

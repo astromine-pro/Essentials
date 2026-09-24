@@ -28,22 +28,6 @@ commands:
     description: Runs the backup if configured.
     usage: /<command>
     aliases: [ebackup]
-  balance:
-    description: States the current balance of a player.
-    usage: /<command> [player]
-    aliases: [bal,ebal,ebalance,money,emoney]
-  balancetop:
-    description: Gets the top balance values.
-    usage: /<command> [page]
-    aliases: [ebalancetop,baltop,ebaltop]
-  ban:
-    description: Bans a player.
-    usage: /<command> <player> [reason]
-    aliases: [eban]
-  banip:
-    description: Bans an IP address.
-    usage: /<command> <address> [reason]
-    aliases: [ebanip]
   beezooka:
     description: Throw an exploding bee at your opponent.
     usage: /<command>
@@ -96,10 +80,6 @@ commands:
     description: Describes your current bearing.
     usage: /<command>
     aliases: [ecompass,direction,edirection]
-  createkit:
-    description: Create a kit in game!
-    usage: /<command> <kitname> <delay>
-    aliases: [kitcreate,createk,kc,ck]
   customtext:
     description: Allows you to create custom text commands.
     usage: /<alias> - Define in bukkit.yml
@@ -111,10 +91,6 @@ commands:
     description: Removes a jail.
     usage: /<command> <jailname>
     aliases: [edeljail,remjail,eremjail,rmjail,ermjail]
-  delkit:
-    description: Deletes the specified kit.
-    usage: /<command> <kit>
-    aliases: [edelkit,remkit,eremkit,rmkit,ermkit,deletekit,edeletekit]
   delwarp:
     description: Deletes the specified warp.
     usage: /<command> <warp>
@@ -127,10 +103,6 @@ commands:
     description: Opens a portable disposal menu.
     usage: /<command>
     aliases: [edisposal,trash,etrash]
-  eco:
-    description: Manages the server economy.
-    usage: /<command> <give|take|set|reset> <player> <amount>
-    aliases: [eeco,economy,eeconomy]
   enchant:
     description: Enchants the item the user is holding.
     usage: /<command> <enchantmentname> [level]
@@ -199,10 +171,6 @@ commands:
     description: Heals you or the given player.
     usage: /<command> [player]
     aliases: [eheal]
-  help:
-    description: Views a list of available commands.
-    usage: /<command> [search term] [page]
-    aliases: [ehelp]
   helpop:
     description: Message online admins.
     usage: /<command> <message>
@@ -219,10 +187,6 @@ commands:
     description: Ignore or unignore other players.
     usage: /<command> <player>
     aliases: [eignore,unignore,eunignore,delignore,edelignore,remignore,eremignore,rmignore,ermignore]
-  info:
-    description: Shows information set by the server owner.
-    usage: /<command> [chapter] [page]
-    aliases: [about,eabout,ifo,eifo,einfo,inform,einform,news,enews]
   invsee:
     description: See the inventory of other players.
     usage: /<command> <player>
@@ -255,26 +219,10 @@ commands:
     description: Jumps to the nearest block in the line of sight.
     usage: /<command>
     aliases: [j,ej,ejump,jumpto,ejumpto]
-  kick:
-    description: Kicks a specified player with a reason.
-    usage: /<command> <player> [reason]
-    aliases: [ekick]
-  kickall:
-    description: Kicks all players off the server except the issuer.
-    usage: /<command> [reason]
-    aliases: [ekickall]
   kill:
     description: Kills specified player.
     usage: /<command> <player>
     aliases: [ekill]
-  kit:
-    description: Obtains the specified kit or views all available kits.
-    usage: /<command> [kit] [player]
-    aliases: [ekit,kits,ekits]
-  kitreset:
-    description: Resets the cooldown on the specified kit.
-    usage: /<command> <kit> [player]
-    aliases: [ekitreset, kitr, ekitr, resetkit, eresetkit]
   kittycannon:
     description: Throw an exploding kitten at your opponent.
     usage: /<command>
@@ -315,10 +263,6 @@ commands:
     description: Blocks receiving all private messages.
     usage: /<command> [player] [on|off]
     aliases: [emsgtoggle]
-  mute:
-    description: Mutes or unmutes a player.
-    usage: /<command> <player> [datediff] [reason]
-    aliases: [emute,silence,esilence,unmute,eunmute]
   near:
     description: Lists the players near by or around a player.
     usage: /<command> [playername] [radius]
@@ -335,22 +279,10 @@ commands:
     description: Teleport to a player's last known logout location
     usage: /<command> <player>
     aliases: [otp, offlinetp, tpoff, tpoffline, etpoffline]
-  pay:
-    description: Pays another player from your balance.
-    usage: /<command> <player> <amount>
-    aliases: [epay]
-  paytoggle:
-    description: Toggles whether you are accepting payments.
-    usage: /<command> [player]
-    aliases: [epaytoggle, payoff, epayoff, payon, epayon]
-  payconfirmtoggle:
-    description: Toggles whether you are prompted to confirm payments.
-    usage: /<command>
-    aliases: [epayconfirmtoggle, payconfirmoff, epayconfirmoff, payconfirmon, epayconfirmon, payconfirm, epayconfirm]
   ping:
-    description: Pong!
-    usage: /<command>
-    aliases: [echo,eecho,eping,pong,epong]
+    description: Shows your ping or another player's ping.
+    usage: /<command> [player]
+    aliases: [eping]
   playtime:
     description: Shows a player's time played in game
     usage: /<command> [player]
@@ -419,10 +351,6 @@ commands:
     description: Shows the last logout time of a player.
     usage: /<command> <playername>
     aliases: [eseen, ealts, alts]
-  sell:
-    description: Sells the item currently in your hand.
-    usage: /<command> <<itemname>|<id>|hand|inventory|blocks> [amount]
-    aliases: [esell]
   sethome:
     description: Set your home to your current location.
     usage: /<command> [[player:]name]
@@ -439,14 +367,6 @@ commands:
     description: Creates a new warp.
     usage: /<command> <warp>
     aliases: [createwarp,ecreatewarp,esetwarp]
-  setworth:
-    description: Set the sell value of an item.
-    usage: /<command> [itemname|id] <price>
-    aliases: [esetworth]
-  showkit:
-    description: Show contents of a kit.
-    usage: /<command> <kitname>
-    aliases: [kitpreview,preview,kitshow]
   editsign:
     description: Edits a sign in the world.
     usage: /<command> <set/clear/copy/paste> [line number] [text]
@@ -487,14 +407,6 @@ commands:
     description: Causes you to perish.
     usage: /<command>
     aliases: [esuicide]
-  tempban:
-    description: Temporary ban a user.
-    usage: /<command> <playername> <datediff> [reason]
-    aliases: [etempban]
-  tempbanip:
-    description: Temporarily ban an IP Address.
-    usage: /<command> <playername> <datediff> [reason]
-    aliases: [etempbanip]
   thunder:
     description: Enable/disable thunder.
     usage: /<command> <true/false> [duration]
@@ -575,14 +487,6 @@ commands:
     description: Spawn a tree where you are looking.
     usage: /<command> <tree|birch|redwood|redmushroom|brownmushroom|jungle|junglebush|swamp>
     aliases: [etree]
-  unban:
-    description: Unbans the specified player.
-    usage: /<command> <player>
-    aliases: [pardon,eunban,epardon]
-  unbanip:
-    description: Unbans the specified IP address.
-    usage: /<command> <address>
-    aliases: [eunbanip,pardonip,epardonip]
   unlimited:
     description: Allows the unlimited placing of items.
     usage: /<command> <list|item|clear> [player]
@@ -615,11 +519,6 @@ commands:
     description: Switch between worlds.
     usage: /<command> [world]
     aliases: [eworld]
-  worth:
-    description: Calculates the worth of items in hand or as specified.
-    usage: /<command> <<itemname>|<id>|hand|inventory|blocks> [-][amount]
-    aliases: [eprice,price,eworth]
-
 permissions:
   essentials.*:
     default: op
@@ -653,34 +552,6 @@ permissions:
     description: Allows the player to use the /back command to travel to a specific world
   essentials.backup:
     description: Allows access to the /backup command
-  essentials.balance:
-    description: Allows access to the /balance command
-  essentials.balance.others:
-    description: Allows view other players balance with the /balance command
-  essentials.balancetop:
-    description: Allows access to the /balancetop command
-  essentials.balancetop.force:
-    description: Allows access to force refresh the balancetop list
-  essentials.balancetop.exclude:
-    default: false
-    description: Players with this permission are excluded from the balancetop
-  essentials.ban:
-    description: Allows access to the /ban command
-  essentials.ban.notify:
-    description: Allows the bearer to be notified when a player is banned
-  essentials.ban.exempt:
-    default: false
-    description: Prevent a specified group or player from being banned
-  essentials.ban.offline:
-    description: Allows access to the /ban command for offline players, which may in turn by used to ban exempt players who are offline
-  essentials.banip:
-    description: Allows access to the /banip command
-  essentials.banip.notify:
-    description: Allows the bearer to be notified when a player is banned
-  essentials.unban:
-    description: Allows access to the /unban command
-  essentials.unbanip:
-    description: Allows access to the /unbanip command
   essentials.bigtree:
     description: Allows access to the /bigtree command
   essentials.book:
@@ -726,14 +597,6 @@ permissions:
     description: Allows access to the /compass command
   essentials.condense:
     description: Allows access to the /condense command
-  essentials.createkit:
-    description: Allows access to the /createkit command
-  essentials.delkit:
-    description: Allows access to the /delkit command
-  essentials.kitreset:
-    description: Allows access to the /kitreset command
-  essentials.kitreset.others:
-    description: Allows access to reset other players kits with the /kitreset command
   essentials.customtext:
     description: Allows access to the /customtext command and all aliases
   essentials.delwarp:
@@ -742,10 +605,6 @@ permissions:
     description: Allows access to the /depth command
   essentials.disposal:
     description: Allows access to the /disposal command
-  essentials.eco:
-    description: Allows access to the /eco command
-  essentials.eco.loan:
-    description: Allows the bearer to possess a negative balance
   essentials.enchant:
     description: Allows access to the /enchant command
   essentials.enchantments.allowunsafe:
@@ -867,10 +726,6 @@ permissions:
     description: Allows access to the /heal command
   essentials.heal.others:
     description: Allows access to the /heal command for other players
-  essentials.help:
-    description: Allows access to the /help command
-  essentials.help.<plugin-name>:
-    description: Allows access to the /help command for a specific plugin
   essentials.helpop:
     description: Allows access to the /helpop command
   essentials.helpop.receive:
@@ -898,8 +753,6 @@ permissions:
     description: Allows access to the /ice command for other players
   essentials.ignore:
     description: Allows access to the /ignore command
-  essentials.info:
-    description: Allows access to the /info command
   essentials.invsee:
     description: Allows access to the /invsee command
   essentials.invsee.equip:
@@ -974,28 +827,6 @@ permissions:
     description: Allows the to join the server even if it is full
   essentials.whitelist.bypass:
     description: Allows a player to join the server even if they are not whitelisted.
-  essentials.kick:
-    description: Allows access to the /kick command
-  essentials.kick.exempt:
-    default: false
-    description: Prevents the player from being kicked.
-  essentials.kick.notify:
-    description: Allows the bearer to be notified when other players are kicked
-  essentials.kickall:
-    description: Allows access to the /kickall command
-  essentials.kickall.exempt:
-    description: Prevents the player from being kicked by /kickall
-  essentials.kit:
-    description: Allows access to the /kit command
-  essentials.kit.exemptdelay:
-    default: false
-    description: Exempts you from the kit delay feature, this affects signs as well as command.
-  essentials.kit.others:
-    description: Allows access to the /kit command for other players
-  essentials.kits.*:
-    description: Allows access to all kits
-  essentials.kits.<kit-name>:
-    description: Allows access to a specific kit
   essentials.kittycannon:
     description: Allows access to the /kittycannon command
   essentials.beezooka:
@@ -1046,17 +877,6 @@ permissions:
     description: Allows access to the /msgtoggle command for other players
   essentials.msgtoggle.bypass:
     description: Allows the bearer to bypass the msgtoggle setting for other players
-  essentials.mute:
-    description: Allows access to the /mute command
-  essentials.mute.notify:
-    description: Allows the bearer to be notified when other players are muted
-  essentials.mute.exempt:
-    default: false
-    description: Prevent a specified group or player from being muted
-  essentials.mute.unlimited:
-    description: Allows the bearer to override the max-mute-time setting
-  essentials.mute.offline:
-    description: Allows access to mute offline players
   essentials.near:
     description: Allows access to the /near command
   essentials.near.maxexempt:
@@ -1096,18 +916,10 @@ permissions:
     description: Allows access to the /nuke command
   essentials.oversizedstacks:
     description: Allows the bearer to spawn oversized stacks
-  essentials.pay:
-    description: Allows access to the /pay command
-  essentials.pay.multiple:
-    description: Allows access to pay multiple players with the /pay command
-  essentials.pay.offline:
-    description: Allows access to pay offline players with the /pay command
-  essentials.payconfirmtoggle:
-    description: Allows access to the /payconfirmtoggle command
-  essentials.paytoggle:
-    description: Allows access to the /paytoggle command
   essentials.ping:
     description: Allows access to the /ping command
+  essentials.ping.others:
+    description: Allows checking another player's ping
   essentials.potion:
     description: Allows access to the /potion command
   essentials.potion.<potion-type>:
@@ -1180,12 +992,6 @@ permissions:
       essentials.seen.uuid: true
       essentials.seen.firstlogin: true
       essentials.seen.whitelist: true
-  essentials.sell:
-    description: Allows access to the /sell command
-  essentials.sell.bulk:
-    description: Allows access to bulk sell items with the /sell command
-  essentials.sell.hand:
-    description: Allows access to sell the item in hand with the /sell command
   essentials.sethome:
     description: Allows access to the /sethome command
   essentials.renamehome:
@@ -1211,10 +1017,6 @@ permissions:
     description: Allows access to the /setjail command
   essentials.setwarp:
     description: Allows access to the /setwarp command
-  essentials.setworth:
-    description: Allows access to the /setworth command
-  essentials.showkit:
-    description: Allows access to the /showkit command
   essentials.signs.enchant.allowunsafe:
     description: Allows the bearer to create and use unsafe enchantment signs
   essentials.signs.protection.override:
@@ -1287,17 +1089,6 @@ permissions:
     description: Allows the bearer to bypass the teleport delay
   essentials.teleport.timer.move:
     description: Allows the bearer to move while waiting for a teleport
-  essentials.tempban:
-    description: Allows access to the /tempban command
-  essentials.tempban.exempt:
-    default: false
-    description: Prevent a specified group or player from being tempbanned
-  essentials.tempban.offline:
-    description: Allows access to tempban offline players
-  essentials.tempban.unlimited:
-    description: Allows the bearer to override the max-tempban-time setting
-  essentials.tempbanip:
-    description: Allows access to the /tempbanip command
   essentials.thunder:
     description: Allows access to the /thunder command
   essentials.time:
@@ -1419,8 +1210,6 @@ permissions:
     description: Allows access to the /world command
   essentials.worlds.<world-name>:
     description: Allows access to the specific world with various commands
-  essentials.worth:
-    description: Allows access to the /worth command
   essentials.signs.break.balance:
     description: Allows the bearer to break balance signs
   essentials.signs.break.buy:

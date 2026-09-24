@@ -118,6 +118,8 @@ teleport-cooldown: 0
 # The delay, in seconds, before a player actually teleports.
 # If the player moves or gets attacked in this timeframe, the teleport is cancelled.
 teleport-delay: 0
+teleport-countdown-chat: true
+teleport-countdown-action-bar: true
 
 # The delay, in seconds, during which a player can't be attacked by other players after being teleported by a command.
 # This also prevents the player from attacking others.
@@ -254,15 +256,6 @@ gamemode-change-preserve-flying: false
 # specified in 'max-walk-speed' and 'max-fly-speed' below.
 world-change-speed-reset: true
 
-# These commands will be disabled when a player is muted.
-# Essentials already disables Essentials messaging commands by default.
-# It only cares about the root command, not args after that (it sees '/f chat' the same as '/f').
-# Remove the # from '*' to disable every command while muted.
-mute-commands:
-  #- '*'
-  - f
-  - kittycannon
-
 # If you do not wish to use a permission system, you can define a list of "player permissions" below.
 # This list has no effect if you are using a supported permissions system.
 # If you are using an unsupported permissions system, simply delete this section.
@@ -275,9 +268,6 @@ player-commands:
   - afk.auto
   - back
   - back.ondeath
-  - balance
-  - balance.others
-  - balancetop
   - build
   - chat.color
   - chat.format
@@ -289,15 +279,11 @@ player-commands:
   - delhome
   - getpos
   - geoip.show
-  - help
   - helpop
   - home
   - home.others
   - ignore
-  - info
   - itemdb
-  - kit
-  - kits.tools
   - list
   - mail
   - mail.send
@@ -307,7 +293,6 @@ player-commands:
   - msg.color
   - nick
   - near
-  - pay
   - ping
   - protect
   - r
@@ -315,28 +300,20 @@ player-commands:
   - renamehome
   - realname
   - seen
-  - sell
   - sethome
   - setxmpp
   - signs.create.protection
-  - signs.create.trade
   - signs.break.protection
-  - signs.break.trade
-  - signs.use.balance
-  - signs.use.buy
   - signs.use.disposal
   - signs.use.enchant
   - signs.use.free
   - signs.use.gamemode
   - signs.use.heal
   - signs.use.info
-  - signs.use.kit
   - signs.use.mail
   - signs.use.protection
   - signs.use.repair
-  - signs.use.sell
   - signs.use.time
-  - signs.use.trade
   - signs.use.warp
   - signs.use.weather
   - spawn
@@ -349,7 +326,6 @@ player-commands:
   - warp
   - warp.list
   - world
-  - worth
   - xmpp
 
 # Use this option to force superperms-based permissions handler regardless of detected installed perms plugin.
@@ -357,43 +333,18 @@ player-commands:
 # If you wish to use Essentials' built-in permissions using the 'player-commands' section above, set this to false.
 use-bukkit-permissions: true
 
-# When this option is enabled, one-time use kits (i.e., delay < 0) will be
-# removed from '/kit list' when a player can no longer use them.
-skip-used-one-time-kits-from-kit-list: false
-
-# When enabled, armor from kits will automatically be equipped as long as the player's armor slots are empty.
-kit-auto-equip: false
-
-# Determines the functionality of the /createkit command.
-# If this is true, /createkit will give the user a link with the kit code.
-# If this is false, /createkit will add the kit to the 'kits.yml' config file directly.
-pastebin-createkit: false
-
-# Determines if /createkit will generate kits using NBT item serialization.
-# If this is true, /createkit will store items as NBT. Otherwise, it will use Essentials' human-readable item format.
-# By using NBT serialization, /createkit can store items with complex metadata such as shulker boxes and weapons with custom attributes.
-# WARNING: This option only works on 1.15.2+ Paper servers, and it will bypass any custom serializers from other plugins such as Magic.
-# WARNING: When creating kits via /createkit with this option enabled, you will not be able to downgrade your server with these kit items.
-# This option only affects /createkit - you can still create kits by hand in 'kits.yml' using Essentials' human-readable item format.
-use-nbt-serialization-in-createkit: false
-
 # To enable signs, remove the # symbol. To disable all signs, comment out or remove each sign.
 # See https://wiki.ess3.net/wiki/Sign_Tutorial for instructions on how to use these.
 # Essentials' colored sign support will be enabled when any sign type is enabled.
 # Note: 'color' is not an actual sign type; it enables using color codes on signs when the correct permissions are given.
 enabledSigns:
   #- color
-  #- balance
-  #- buy
   #- free
-  #- sell
-  #- trade
   #- enchant
   #- repair
   #- gamemode
   #- heal
   #- info
-  #- kit
   #- mail
   #- randomteleport
   #- warp
@@ -417,15 +368,6 @@ sign-use-per-second: 4
 # You cannot use item IDs on new signs, but this will allow players to interact with signs that
 # were placed before 1.13.
 allow-old-id-signs: false
-
-# List of sign names Essentials should not protect. This feature is especially useful when
-# another plugin provides a sign that Essentials provides, but Essentials overrides.
-# For example, if a plugin provides a [kit] sign, and you wish to use theirs instead of
-# Essentials', then simply add 'kit' below and Essentials will not protect it.
-#
-# See https://github.com/drtshock/Essentials/pull/699 for more information.
-unprotected-sign-names:
-  #- kit
 
 # Backup runs a custom batch/bash command at a specified interval.
 # The server will save the world before executing the backup command, and disable
@@ -511,8 +453,6 @@ auto-afk-timeout: -1
 # {USERNAME} - The player's username.
 # {KICKTIME} - The time, in minutes, the player has been AFK for.
 afk-timeout-commands:
-  #- eco take {USERNAME} 10
-  #- kick {USERNAME} You have been kicked for being inactive for {KICKTIME} minutes! You lost $10.
 
 # Set this to true if you want to freeze players when they are AFK.
 # Other players or monsters won't be able to push them out of AFK mode.
@@ -647,7 +587,7 @@ oversized-stacksize: 64
 # using the permission 'essentials.repair.enchanted'.
 repair-enchanted: true
 
-# Allow "unsafe" enchantments in kits and item spawning.
+# Allow "unsafe" enchantments in item spawning.
 # WARNING: Mixing and over-leveling some enchantments can cause issues with clients, servers, and plugins.
 unsafe-enchantments: false
 
@@ -670,14 +610,6 @@ max-fly-speed: 0.8
 
 # Set the maximum amount of mail that can be sent within a minute.
 mails-per-minute: 1000
-
-# Set the maximum duration, in seconds, that /mute can be applied for.
-# Set to -1 to disable the limit. Players with the 'essentials.mute.unlimited' permission can bypass this restriction.
-max-mute-time: -1
-
-# Set the maximum duration, in seconds, that /tempban can be applied for.
-# Set to -1 to disable the limit. Players with the 'essentials.tempban.unlimited' permission can bypass this restriction.
-max-tempban-time: -1
 
 # Changes the default /reply functionality. This can be changed on a per-player basis using /rtoggle.
 # If true, /r goes to the person you messaged last, otherwise the first person that messaged you.
@@ -714,8 +646,6 @@ world-time-permissions: false
 # adds a 50-second cooldown to all commands that include the letter "i".
 #
 # Essentials supports regex by starting the command with a caret (^).
-# For example, to target commands starting with "ban" but not "banip", use:
-#  '^ban([^ip])( .*)?': 60 # 60-second /ban cooldown
 # Note: If you have a command that starts with ^, escape it using a backslash (\). E.g., \^command: 123
 command-cooldowns:
   #feed: 100 # 100-second cooldown on /feed command
@@ -723,18 +653,6 @@ command-cooldowns:
 
 # Whether command cooldowns should persist across server shutdowns.
 command-cooldown-persistence: true
-
-# Whether NPC balances should be included in balance ranking features like /balancetop.
-# NPC balances can include features like factions from the FactionsUUID plugin.
-npcs-in-balance-ranking: false
-
-# Allow bulk buying and selling with signs while the player is sneaking.
-# This is useful when a sign buys or sells one item at a time and the player wants to sell many at once.
-allow-bulk-buy-sell: true
-
-# Allow selling items with custom names with the /sell command.
-# This can help prevent players from accidentally selling named items.
-allow-selling-named-items: false
 
 # The delay, in milliseconds, for displaying the MOTD to players on join.
 # This has no effect if the MOTD command or permission is disabled.
@@ -744,7 +662,6 @@ delay-motd: 0
 # A list of commands that should have their complementary confirm commands enabled by default.
 # This is empty by default. For the latest list of valid commands, refer to the latest source 'config.yml'.
 default-enabled-confirm-commands:
-  #- pay
   #- clearinventory
 
 # Where should Essentials teleport players when they are freed from jail?
@@ -843,120 +760,6 @@ confirm-home-overwrite: false
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                       Economy                        | #
-# +------------------------------------------------------+ #
-############################################################
-
-# For more information, visit https://wiki.ess3.net/wiki/Essentials_Economy
-
-# You can control the values of items that are sold to the server by using the /setworth command and 'worth.yml'.
-
-# Defines the balance new players start with.
-starting-balance: 0
-
-# Defines the cost to use the given commands PER USE.
-# Some commands like /repair have sub-costs. Check the wiki for more information.
-command-costs:
-  # To make /example cost $1000 PER USE:
-  #example: 1000
-  # To make '/kit tools' cost $1500 PER USE:
-  #kit-tools: 1500
-
-# Set this to a currency symbol you want to use.
-# Remember, if you want to use special characters in this document, such as accented letters,
-# you MUST save the file as UTF-8, not ANSI.
-currency-symbol: '$'
-
-# Enable this to make the currency symbol appear at the end of the amount rather than at the start.
-# For example, the euro symbol typically appears after the current amount.
-currency-symbol-suffix: false
-
-# Set the maximum amount of money a player can have.
-# Note: Extremely large numbers may have unintended consequences.
-max-money: 10000000000000
-
-# Set the minimum amount of money a player can have (must be greater than the negative value of max-money).
-# Setting this to 0 will disable overdrafts/loans completely.
-# Players need 'essentials.eco.loan' permission to have a negative balance.
-min-money: -10000
-
-# Enable this to log all interactions with buy/sell/trade signs and the sell command.
-economy-log-enabled: false
-
-# Enable this to replace usernames with UUIDs in the trade.log file.
-# If this is false, usernames will be used instead of UUIDs.
-economy-log-uuids: false
-
-# Enable this to also log all transactions from other plugins through Vault.
-# This can cause the economy log to fill up quickly so it should only be enabled for testing purposes!
-economy-log-update-enabled: false
-
-# The minimum acceptable amount to be used in /pay.
-minimum-pay-amount: 0.001
-
-# Enable this to block players who try to /pay someone who is ignoring them.
-pay-excludes-ignore-list: false
-
-# Whether players with a balance of $0 or less should be shown in the balance top list.
-# Setting this to false will hide balances with $0 or less.
-# Note: After reloading the config, run '/baltop force' for changes to take effect.
-show-zero-baltop: true
-
-# Requirements that players must meet to have their name shown in the balance top list.
-# Playtime is measured in seconds.
-baltop-requirements:
-  minimum-balance: 0
-  minimum-playtime: 0
-
-# Limit the number of cached balance top entries.
-# Recommended for servers with a large number of players, as it reduces memory usage.
-# Set to -1 to disable the limit.
-baltop-entry-limit: -1
-
-# The format of currency, excluding symbols. For symbol configuration, see 'currency-symbol-format-locale' below.
-#
-# "#,##0.00" is how the majority of countries display currency.
-#currency-format: "#,##0.00"
-
-# Format currency symbols. Some locales use , and . interchangeably.
-# Certain formats may not display correctly in-game due to Minecraft font rendering issues.
-#
-# Example locales:
-#  - de-DE for 1.234,50
-#  - en-US for 1,234.50
-#  - fr-CH for 1'234,50
-#
-# Or see https://www.iban.com/country-codes for all Alpha-2 country codes.
-#currency-symbol-format-locale: en-US
-
-# Allow players to receive multipliers for items sold with /sell or the sell sign.
-# You can set the default multiplier using the 'default' rank below.
-#
-# To grant different multipliers to different people, you need to define a "multiplier rank" below.
-# Once created, give the matching permission: 'essentials.sell.multiplier.<multiplier_rank>'.
-# Note: The "multiplier ranks" defined below do not need to match your permissions plugin's group names.
-sell-multipliers:
-  default: 1.0
-  double: 2.0
-  triple: 3.0
-
-############################################################
-# +------------------------------------------------------+ #
-# |                         Help                         | #
-# +------------------------------------------------------+ #
-############################################################
-
-# Show other plugins' commands in the Essentials help list.
-non-ess-in-help: true
-
-# Hide plugins that players do not have permission to use.
-# You can override this by adding the 'essentials.help.<plugin>' permission to a player or group.
-# Players with 'essentials.*' or '*' will see all help regardless.
-# You can also use negative permissions to remove access to a specific plugin's help if this is enabled.
-hide-permissionless-help: true
-
-############################################################
-# +------------------------------------------------------+ #
 # |                   EssentialsX Chat                   | #
 # +------------------------------------------------------+ #
 ############################################################
@@ -970,7 +773,6 @@ chat:
   # Players with 'essentials.chat.spy' will see everything, regardless of this setting.
   # Players with 'essentials.chat.shout' can override this by prefixing their message with an exclamation mark (!).
   # Players with 'essentials.chat.question' can override this by prefixing their message with a question mark (?).
-  # You can add command costs for shout/question by adding 'chat-shout' and 'chat-question' to the 'command-costs' section above.
   radius: 0
 
   # Chat formatting can be configured in two ways:
@@ -1326,11 +1128,6 @@ newbies:
   # Different spawn names can be set using '/setspawn <group>'.
   spawnpoint: newbies
 
-  # Should players receive items on their first join?
-  # This kit will be given regardless of cost and permissions and won't trigger any kit delay (cooldown).
-  # Set to '' to disable.
-  #kit: ''
-  kit: tools
 
 # What priority should Essentials use for handling respawns?
 # Set this to 'none' if you want vanilla respawning behavior.

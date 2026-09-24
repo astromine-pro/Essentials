@@ -146,6 +146,10 @@ public interface ISettings extends IConf {
 
     double getTeleportDelay();
 
+    boolean isTeleportCountdownChatEnabled();
+
+    boolean isTeleportCountdownActionBarEnabled();
+
     boolean hidePermissionlessHelp();
 
     boolean isCommandDisabled(final IEssentialsCommand cmd);

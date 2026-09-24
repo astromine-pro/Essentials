@@ -6,6 +6,34 @@
 
 [<img alt="Patreon" src="https://img.shields.io/badge/-Support_on_Patreon-F96854.svg?logo=patreon&style=flat-square&logoColor=white" height=32>](https://www.patreon.com/essentialsx)
 
+## Локальная сборка для серверов за Velocity
+
+Это форк EssentialsX для Bukkit/Paper серверов, работающих за Velocity. JAR устанавливается на каждый игровой сервер, где нужны команды EssentialsX, а не на сам прокси.
+
+Из EssentialsX удалены команды и их реализации: экономика (`balance`, `balancetop`/`baltop`, `eco`, `pay`, `paytoggle`, `payconfirmtoggle`, `sell`, `setworth`, `worth`), наборы (`kit`, `kitreset`, `createkit`, `delkit`, `showkit`), баны, кики и мут (`ban`, `banip`, `tempban`, `tempbanip`, `unban`, `unbanip`, `kick`, `kickall`, `mute`), а также `help` и `info` со всеми их алиасами, включая `about`. Экономика EssentialsX отключена независимо от старого `config.yml`: плагин не занимает провайдер Vault и не обрабатывает экономические таблички. Выдача стартового набора и табличка `[kit]` отключены. Общие классы API сохранены для совместимости с другими модулями и будущими обновлениями.
+
+`/bc <сообщение>` теперь показывает автора объявления. `/ping` показывает «Ваш пинг», а `/ping <игрок>` — пинг указанного игрока; для второго варианта требуется `essentials.ping.others`. У `/ping` больше нет поведения `echo` и алиасов `pong`.
+
+При `teleport-delay` больше нуля отсчёт обновляется каждую секунду. `teleport-countdown-chat: true` выводит его в чат, `teleport-countdown-action-bar: true` — в action bar. Для каждого канала можно поставить `false`. Сообщения `/bc`, `/ping` и отсчёта добавлены во все языковые ресурсы. Если включён `per-player-locale`, игрок получает формулировку на своём языке. В чате каждое обновление занимает отдельную строку.
+
+В шаблоне `config.yml` убраны настройки и примеры для удалённых команд, наборов, экономики и справки EssentialsX. Старые конфиги серверов не перезаписываются при обновлении JAR; оставшиеся в них поля не включают удалённые команды обратно.
+
+Сборка не регистрирует перечисленные команды EssentialsX. Команды с теми же именами могут по-прежнему предоставлять Velocity, Bukkit/Paper или другие плагины.
+
+### Сборка и обновление
+
+На Windows: `gradlew.bat :EssentialsX:build`. На Linux/macOS: `./gradlew :EssentialsX:build`. Готовый JAR находится в `jars/`.
+
+Для переноса новых изменений EssentialsX сначала сохраните правки форка отдельным коммитом и добавьте официальный репозиторий как `upstream`:
+
+```bash
+git remote add upstream https://github.com/EssentialsX/Essentials.git
+git fetch upstream
+git merge upstream/2.x
+```
+
+Если `upstream` уже настроен, первый шаг пропустите. После разрешения конфликтов проверьте `plugin.yml`, `config.yml`, `Settings.java`, `AsyncTimedTeleport.java`, `Signs.java`, `Commandping.java` и файлы сообщений, затем соберите проект. При разборе отдельного коммита EssentialsX можно перенести его через `git cherry-pick <хеш>` и проверить тот же набор файлов.
+
 This is a fork of Essentials called EssentialsX.
 
 If you are using this, do **NOT** ask Essentials for support.

@@ -1,10 +1,12 @@
 package com.earth2me.essentials.commands;
 
 import com.earth2me.essentials.CommandSource;
-import com.earth2me.essentials.utils.FormatUtil;
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
 
-// This command can be used to echo messages to the users screen, mostly useless but also an #EasterEgg
+import java.util.Collections;
+import java.util.List;
+
 public class Commandping extends EssentialsCommand {
     public Commandping() {
         super("ping");
@@ -13,9 +15,23 @@ public class Commandping extends EssentialsCommand {
     @Override
     public void run(final Server server, final CommandSource sender, final String commandLabel, final String[] args) throws Exception {
         if (args.length == 0) {
-            sender.sendTl("pong");
-        } else {
-            sender.sendMessage(FormatUtil.replaceFormat(getFinalArg(args, 0)));
+            if (!sender.isPlayer()) {
+                throw new NotEnoughArgumentsException();
+            }
+            sender.sendTl("pingSelf", sender.getPlayer().spigot().getPing());
+            return;
         }
+
+        if (args.length != 1 || !sender.isAuthorized("essentials.ping.others")) {
+            throw new NotEnoughArgumentsException();
+        }
+
+        final Player target = getPlayer(server, sender, args, 0).getBase();
+        sender.sendTl("pingOther", target.getName(), target.spigot().getPing());
+    }
+
+    @Override
+    protected List<String> getTabCompleteOptions(final Server server, final CommandSource sender, final String commandLabel, final String[] args) {
+        return args.length == 1 && sender.isAuthorized("essentials.ping.others") ? getPlayers(sender) : Collections.emptyList();
     }
 }

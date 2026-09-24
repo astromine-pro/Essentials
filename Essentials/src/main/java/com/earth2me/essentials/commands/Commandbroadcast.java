@@ -17,7 +17,7 @@ public class Commandbroadcast extends EssentialsCommand {
         }
 
         final String message = FormatUtil.replaceFormat(getFinalArg(args, 0)).replace("\\n", "\n");
-        ess.broadcastTl("broadcast",
+        ess.broadcastTl("broadcastWithAuthor",
                 AdventureUtil.parsed(ess.getAdventureFacet().legacyToMiniWithUrls(ess.getAdventureFacet().escapeTags(message))),
                 sender.getDisplayName());
     }

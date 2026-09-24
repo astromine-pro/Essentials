@@ -1,8 +1,11 @@
 package com.earth2me.essentials;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
@@ -33,6 +36,8 @@ public class AsyncTimedTeleport implements Runnable {
     private final TeleportCause timer_cause;
     private int timer_task;
     private double timer_health;
+    private long lastCountdownSeconds = -1;
+    private boolean countdownActionBarShown;
 
     AsyncTimedTeleport(final IUser user, final IEssentials ess, final AsyncTeleport teleport, final long delay, final IUser teleportUser, final ITarget target, final Trade chargeFor, final TeleportCause cause, final boolean respawn) {
         this(user, ess, teleport, delay, null, teleportUser, target, chargeFor, cause, respawn);
@@ -59,15 +64,16 @@ public class AsyncTimedTeleport implements Runnable {
 
         if (future != null) {
             this.parentFuture = future;
-            return;
+        } else {
+            final CompletableFuture<Boolean> cFuture = new CompletableFuture<>();
+            cFuture.exceptionally(e -> {
+                ess.showError(teleportOwner.getSource(), e, "\\ teleport");
+                return false;
+            });
+            this.parentFuture = cFuture;
         }
 
-        final CompletableFuture<Boolean> cFuture = new CompletableFuture<>();
-        cFuture.exceptionally(e -> {
-            ess.showError(teleportOwner.getSource(), e, "\\ teleport");
-            return false;
-        });
-        this.parentFuture = cFuture;
+        ess.scheduleSyncDelayedTask(() -> showCountdown(System.currentTimeMillis()));
     }
 
     @Override
@@ -103,7 +109,7 @@ public class AsyncTimedTeleport implements Runnable {
 
                 timer_health = teleportUser.getBase().getHealth(); // in case user healed, then later gets injured
                 final long now = System.currentTimeMillis();
-                if (now > timer_started + timer_delay) {
+                if (now >= timer_started + timer_delay) {
                     try {
                         teleport.cooldown(false);
                     } catch (final Throwable ex) {
@@ -138,11 +144,39 @@ public class AsyncTimedTeleport implements Runnable {
                     } catch (final Exception ex) {
                         ess.showError(teleportOwner.getSource(), ex, "\\ teleport");
                     }
+                } else {
+                    showCountdown(now);
                 }
             }
         }
 
         ess.scheduleSyncDelayedTask(new DelayedTeleportTask());
+    }
+
+    private void showCountdown(final long now) {
+        if (timer_task == -1) {
+            return;
+        }
+        final long seconds = Math.max(0, (timer_started + timer_delay - now + 999) / 1000);
+        if (seconds == 0 || seconds == lastCountdownSeconds) {
+            return;
+        }
+        lastCountdownSeconds = seconds;
+
+        final IUser teleportUser = ess.getUser(timer_teleportee);
+        if (teleportUser == null || !teleportUser.getBase().isOnline()) {
+            return;
+        }
+
+        final String duration = seconds + " " + teleportUser.playerTl(seconds == 1 ? "second" : "seconds");
+        if (ess.getSettings().isTeleportCountdownChatEnabled()) {
+            teleportUser.sendTl("teleportCountdown", seconds, duration);
+        }
+        if (ess.getSettings().isTeleportCountdownActionBarEnabled()) {
+            final String message = ess.getAdventureFacet().miniToLegacy(teleportUser.playerTl("teleportCountdown", seconds, duration));
+            teleportUser.getBase().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+            countdownActionBarShown = true;
+        }
     }
 
     //If we need to cancelTimer a pending teleportPlayer call this method
@@ -168,6 +202,17 @@ public class AsyncTimedTeleport implements Runnable {
             }
         } finally {
             timer_task = -1;
+            if (countdownActionBarShown) {
+                final IUser teleportUser = ess.getUser(timer_teleportee);
+                if (teleportUser != null && teleportUser.getBase().isOnline()) {
+                    final Runnable clear = () -> teleportUser.getBase().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
+                    if (Bukkit.isPrimaryThread()) {
+                        clear.run();
+                    } else {
+                        ess.scheduleSyncDelayedTask(clear);
+                    }
+                }
+            }
         }
     }
 }
