@@ -82,7 +82,7 @@ public class Commandclearinventory extends EssentialsCommand {
     }
 
     protected void clearHandler(final CommandSource sender, final Player player, final String[] args, final int offset, final boolean showExtended) throws TranslatableException {
-        ClearHandlerType type = ClearHandlerType.ALL_EXCEPT_ARMOR;
+        ClearHandlerType type = ClearHandlerType.ALL_INCLUDING_ARMOR;
         final Set<Item> items = new HashSet<>();
         int amount = -1;
 
@@ -90,9 +90,9 @@ public class Commandclearinventory extends EssentialsCommand {
             amount = Integer.parseInt(args[offset + 1]);
         }
         if (args.length > offset) {
-            if (args[offset].equalsIgnoreCase("**")) {
-                type = ClearHandlerType.ALL_INCLUDING_ARMOR;
-            } else if (!args[offset].equalsIgnoreCase("*")) {
+            if (args[offset].equalsIgnoreCase("*")) {
+                type = ClearHandlerType.ALL_EXCEPT_ARMOR;
+            } else if (!args[offset].equalsIgnoreCase("**")) {
                 final String[] split = args[offset].split(",");
                 for (final String item : split) {
                     final String[] itemParts = item.split(":");
