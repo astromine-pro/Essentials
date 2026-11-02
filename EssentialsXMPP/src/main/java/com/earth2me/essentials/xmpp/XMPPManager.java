@@ -5,7 +5,6 @@ import com.earth2me.essentials.IConf;
 import com.earth2me.essentials.config.EssentialsConfiguration;
 import com.earth2me.essentials.utils.FormatUtil;
 import net.ess3.api.IUser;
-import org.bukkit.entity.Player;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
@@ -86,9 +85,6 @@ public class XMPPManager extends Handler implements MessageListener, ChatManager
         if (msg.getType() != Message.Type.error && msg.getBody().length() > 0) {
             final String message = msg.getBody();
             switch (message.charAt(0)) {
-                case '@':
-                    sendPrivateMessage(chat, message);
-                    break;
                 case '/':
                     sendCommand(chat, message);
                     break;
@@ -302,26 +298,6 @@ public class XMPPManager extends Handler implements MessageListener, ChatManager
                     throw new XMPPException("Could not start Chat with " + address);
                 }
                 chats.put(address, chat);
-            }
-        }
-    }
-
-    private void sendPrivateMessage(final Chat chat, final String message) {
-        final String[] parts = message.split(" ", 2);
-        if (parts.length == 2) {
-            final List<Player> matches = parent.getServer().matchPlayer(parts[0].substring(1));
-
-            if (matches.isEmpty()) {
-                try {
-                    chat.sendMessage("User " + parts[0] + " not found");
-                } catch (final XMPPException ex) {
-                    logger.log(Level.WARNING, "Failed to send xmpp message.", ex);
-                }
-            } else {
-                final String from = "[" + parent.getUserByAddress(StringUtils.parseBareAddress(chat.getParticipant())) + ">";
-                for (final Player p : matches) {
-                    p.sendMessage(from + p.getDisplayName() + "]  " + message);
-                }
             }
         }
     }

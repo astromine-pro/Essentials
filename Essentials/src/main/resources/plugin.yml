@@ -255,14 +255,6 @@ commands:
     description: Views the Message Of The Day.
     usage: /<command> [chapter] [page]
     aliases: [emotd]
-  msg:
-    description: Sends a private message to the specified player.
-    usage: /<command> <to> <message>
-    aliases: [w,m,t,pm,emsg,epm,tell,etell,whisper,ewhisper]
-  msgtoggle:
-    description: Blocks receiving all private messages.
-    usage: /<command> [player] [on|off]
-    aliases: [emsgtoggle]
   near:
     description: Lists the players near by or around a player.
     usage: /<command> [playername] [radius]
@@ -311,14 +303,6 @@ commands:
     description: Adjust a player's weather
     usage: /<command> [list|reset|storm|sun|clear] [player|*]
     aliases: [playerweather,eplayerweather,epweather]
-  r:
-    description: Quickly reply to the last player to message you.
-    usage: /<command> <message>
-    aliases: [er,reply,ereply]
-  rtoggle:
-    description: Change whether the recipient of the reply is last recipient or last sender
-    usage: /<command> [player] [on|off]
-    aliases: [ertoggle, replytoggle, ereplytoggle]
   realname:
     description: Displays the username of a user based on nick.
     usage: /<command> <nickname>
@@ -379,10 +363,6 @@ commands:
     description: Opens up a smithing table.
     usage: /<command>
     aliases: [esmithingtable, smithtable, esmithtable]
-  socialspy:
-    description: Toggles if you can see msg/mail commands in chat.
-    usage: /<command> [player] [on|off]
-    aliases: [esocialspy]
   spawner:
     description: Change the mob type of a spawner.
     usage: /<command> <mob> [delay]
@@ -857,26 +837,6 @@ permissions:
     description: Allows access to the /more command
   essentials.motd:
     description: Allows access to the /motd command
-  essentials.msg:
-    description: Allows access to the /msg command
-  essentials.msg.format:
-    description: Allows access to the /msg command with formatting text
-  essentials.msg.magic:
-    description: Allows access to the /msg command with magic text
-  essentials.msg.color:
-    description: Allows access to the /msg command with color text
-  essentials.msg.rgb:
-    description: Allows access to the /msg command with RGB text
-  essentials.msg.url:
-    description: Allows access to send URLs in the /msg command
-  essentials.msg.multiple:
-    description: Allows access to send messages to multiple players with the /msg command
-  essentials.msgtoggle:
-    description: Allows access to the /msgtoggle command
-  essentials.msgtoggle.others:
-    description: Allows access to the /msgtoggle command for other players
-  essentials.msgtoggle.bypass:
-    description: Allows the bearer to bypass the msgtoggle setting for other players
   essentials.near:
     description: Allows access to the /near command
   essentials.near.maxexempt:
@@ -944,8 +904,6 @@ permissions:
     description: Allows access to the /pweather command
   essentials.pweather.others:
     description: Allows access to the /pweather command for other players
-  essentials.rtoggle:
-    description: Allows access to the /rtoggle command
   essentials.realname:
     description: Allows access to the /realname command
   essentials.recipe:
@@ -1044,10 +1002,6 @@ permissions:
     description: Allows access to spawn a skull with the /skull command
   essentials.sleepingignored:
     description: Allows the bearer to not be required to sleep to skip the night
-  essentials.socialspy:
-    description: Allows access to the /socialspy command
-  essentials.socialspy.others:
-    description: Allows access to the /socialspy command for other players
   essentials.spawner:
     description: Allows access to the /spawner command
   essentials.spawner.delay:

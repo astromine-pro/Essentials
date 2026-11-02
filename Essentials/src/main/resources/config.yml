@@ -192,46 +192,6 @@ disabled-commands:
 # If set to false, Essentials will collapse all usages in to one single usage message.
 verbose-command-usages: true
 
-# These commands will be shown to players with SocialSpy enabled.
-# You can add commands from other plugins to track.
-# Remove any commands you don't want to spy on.
-# Remove the # from '*' to listen to all possible commands.
-socialspy-commands:
-  #- '*'
-  - action
-  - describe
-  - eaction
-  - edescribe
-  - email
-  - eme
-  - emsg
-  - er
-  - ereply
-  - etell
-  - ewhisper
-  - m
-  - mail
-  - msg
-  - pm
-  - r
-  - reply
-  - t
-  - tell
-  - w
-  - whisper
-
-# Whether private and public messages from muted players should appear in SocialSpy.
-# If true, they will be differentiated from messages sent by normal players.
-socialspy-listen-muted-players: true
-
-# Whether SocialSpy should spy on private messages in addition to the commands from the list above.
-# If false, it will only monitor the commands from the list above.
-socialspy-messages: true
-
-# Whether SocialSpy should use formatted display names, which may include color.
-# If false, it will use only actual player names.
-socialspy-uses-displaynames: true
-
 # The following world settings listen for when a player changes worlds.
 # If you use another plugin to control speed and flight, you should change these to false.
 
@@ -609,22 +569,6 @@ max-fly-speed: 0.8
 
 # Set the maximum amount of mail that can be sent within a minute.
 mails-per-minute: 1000
-
-# Changes the default /reply functionality. This can be changed on a per-player basis using /rtoggle.
-# If true, /r goes to the person you messaged last, otherwise the first person that messaged you.
-# If false, /r goes to the last person that messaged you.
-last-message-reply-recipient: true
-
-# If 'last-message-reply-recipient' is enabled for a particular player,
-# this specifies the duration, in seconds, that would need to elapse for the
-# reply recipient to update when receiving a message.
-# 180 seconds = 3 minutes
-last-message-reply-recipient-timeout: 180
-
-# Changes the default /reply functionality.
-# If true, /reply will not check if the person you're replying to is vanished.
-# If false, players will not be able to /reply to vanished players they cannot see.
-last-message-reply-vanished: false
 
 # Toggles whether left clicking mobs with a milk bucket turns them into a baby.
 milk-bucket-easter-egg: true

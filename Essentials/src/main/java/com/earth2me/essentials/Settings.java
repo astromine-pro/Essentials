@@ -34,7 +34,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -76,7 +75,6 @@ public class Settings implements net.ess3.api.ISettings {
     private List<String> playerCommands = Collections.emptyList();
     private final transient Map<String, Command> disabledBukkitCommands = new HashMap<>();
     private Map<String, BigDecimal> commandCosts;
-    private Set<String> socialSpyCommands = new HashSet<>();
     private Set<String> muteCommands = new HashSet<>();
     private String nicknamePrefix = "~";
     private String operatorColor = null;
@@ -463,40 +461,6 @@ public class Settings implements net.ess3.api.ISettings {
             return commandCosts.get(name);
         }
         return BigDecimal.ZERO;
-    }
-
-    private Set<String> _getSocialSpyCommands() {
-        final Set<String> socialspyCommands = new HashSet<>();
-
-        if (config.isList("socialspy-commands")) {
-            for (final String c : config.getList("socialspy-commands", String.class)) {
-                socialspyCommands.add(c.toLowerCase(Locale.ENGLISH));
-            }
-        } else {
-            socialspyCommands.addAll(Arrays.asList("msg", "r", "mail", "m", "whisper", "emsg", "t", "tell", "er", "reply", "ereply", "email", "action", "describe", "eme", "eaction", "edescribe", "etell", "ewhisper", "pm"));
-        }
-
-        return socialspyCommands;
-    }
-
-    @Override
-    public Set<String> getSocialSpyCommands() {
-        return socialSpyCommands;
-    }
-
-    @Override
-    public boolean getSocialSpyListenMutedPlayers() {
-        return config.getBoolean("socialspy-listen-muted-players", true);
-    }
-
-    @Override
-    public boolean isSocialSpyMessages() {
-        return config.getBoolean("socialspy-messages", true);
-    }
-
-    @Override
-    public boolean isSocialSpyDisplayNames() {
-        return config.getBoolean("socialspy-uses-displaynames", true);
     }
 
     private Set<String> _getMuteCommands() {
@@ -918,7 +882,6 @@ public class Settings implements net.ess3.api.ISettings {
         chatShout = _getChatShout();
         chatQuestion = _getChatQuestion();
         commandCosts = _getCommandCosts();
-        socialSpyCommands = _getSocialSpyCommands();
         warnOnBuildDisallow = _warnOnBuildDisallow();
         mailsPerMinute = _getMailsPerMinute();
         maxMoney = _getMaxMoney();
@@ -1706,16 +1669,6 @@ public class Settings implements net.ess3.api.ISettings {
     }
 
     @Override
-    public boolean isLastMessageReplyRecipient() {
-        return config.getBoolean("last-message-reply-recipient", false);
-    }
-
-    @Override
-    public boolean isReplyToVanished() {
-        return config.getBoolean("last-message-reply-vanished", true);
-    }
-
-    @Override
     public BigDecimal getMinimumPayAmount() {
         return new BigDecimal(config.getString("minimum-pay-amount", "0.001"));
     }
@@ -1723,11 +1676,6 @@ public class Settings implements net.ess3.api.ISettings {
     @Override
     public boolean isPayExcludesIgnoreList() {
         return config.getBoolean("pay-excludes-ignore-list", false);
-    }
-
-    @Override
-    public long getLastMessageReplyRecipientTimeout() {
-        return config.getLong("last-message-reply-recipient-timeout", 180);
     }
 
     @Override

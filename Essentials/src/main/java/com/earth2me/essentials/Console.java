@@ -2,7 +2,6 @@ package com.earth2me.essentials;
 
 import com.earth2me.essentials.adventure.AdventureFacet;
 import com.earth2me.essentials.messaging.IMessageRecipient;
-import com.earth2me.essentials.messaging.SimpleMessageRecipient;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,11 +20,9 @@ public final class Console implements IMessageRecipient {
     private static Console instance; // Set in essentials
 
     private final IEssentials ess;
-    private final IMessageRecipient messageRecipient;
 
     private Console(final IEssentials ess) {
         this.ess = ess;
-        this.messageRecipient = new SimpleMessageRecipient(ess, this);
     }
 
     public static Console getInstance() {
@@ -77,40 +74,6 @@ public final class Console implements IMessageRecipient {
 
         final AdventureFacet adventureFacet = ess.getAdventureFacet();
         adventureFacet.send(getCommandSender(), adventureFacet.deserializeMiniMessage(translation));
-    }
-
-    @Override
-    public String tlSender(String tlKey, Object... args) {
-        return tlLiteral(tlKey, args);
-    }
-
-    @Override
-    public boolean isReachable() {
-        return true;
-    }
-
-    /* ================================
-     * >> DELEGATE METHODS
-     * ================================ */
-
-    @Override
-    public MessageResponse sendMessage(final IMessageRecipient recipient, final String message) {
-        return this.messageRecipient.sendMessage(recipient, message);
-    }
-
-    @Override
-    public MessageResponse onReceiveMessage(final IMessageRecipient sender, final String message) {
-        return this.messageRecipient.onReceiveMessage(sender, message);
-    }
-
-    @Override
-    public IMessageRecipient getReplyRecipient() {
-        return this.messageRecipient.getReplyRecipient();
-    }
-
-    @Override
-    public void setReplyRecipient(final IMessageRecipient recipient) {
-        this.messageRecipient.setReplyRecipient(recipient);
     }
 
     @Override

@@ -591,15 +591,6 @@ public abstract class UserData extends PlayerExtension implements IConf {
         config.save();
     }
 
-    public boolean isSocialSpyEnabled() {
-        return holder.socialSpy();
-    }
-
-    public void setSocialSpyEnabled(final boolean status) {
-        holder.socialSpy(status);
-        config.save();
-    }
-
     public boolean isNPC() {
         return holder.npc();
     }
@@ -730,15 +721,6 @@ public abstract class UserData extends PlayerExtension implements IConf {
 
     public void setPromptingClearConfirm(final boolean prompt) {
         holder.confirmClear(prompt);
-        save();
-    }
-
-    public boolean isLastMessageReplyRecipient() {
-        return holder.lastMessageReplyRecipient() != null ? holder.lastMessageReplyRecipient() : ess.getSettings().isLastMessageReplyRecipient();
-    }
-
-    public void setLastMessageReplyRecipient(final boolean enabled) {
-        holder.lastMessageReplyRecipient(enabled);
         save();
     }
 

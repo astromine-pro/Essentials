@@ -210,10 +210,6 @@ public interface IUser {
     @Deprecated
     void setAfk(final boolean set);
 
-    boolean isIgnoreMsg();
-
-    void setIgnoreMsg(boolean ignoreMsg);
-
     @Deprecated
     void setConfigProperty(String node, Object object);
 
@@ -266,10 +262,6 @@ public interface IUser {
     boolean isPromptingClearConfirm();
 
     void setPromptingClearConfirm(boolean prompt);
-
-    boolean isLastMessageReplyRecipient();
-
-    void setLastMessageReplyRecipient(boolean enabled);
 
     Map<User, BigDecimal> getConfirmingPayments();
 

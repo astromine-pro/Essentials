@@ -49,7 +49,6 @@ public class DiscordSettings implements IConf {
     private MessageFormat permMuteReasonFormat;
     private MessageFormat unmuteFormat;
     private MessageFormat kickFormat;
-    private MessageFormat pmToDiscordFormat;
 
     public DiscordSettings(EssentialsDiscord plugin) {
         this.plugin = plugin;
@@ -460,10 +459,6 @@ public class DiscordSettings implements IConf {
         return kickFormat;
     }
 
-    public MessageFormat getPmToDiscordFormat() {
-        return pmToDiscordFormat;
-    }
-
     private String getFormatString(String node) {
         final String pathPrefix = node.startsWith(".") ? "" : "messages.";
         return config.getString(pathPrefix + (pathPrefix.isEmpty() ? node.substring(1) : node), null);
@@ -600,8 +595,6 @@ public class DiscordSettings implements IConf {
                 "username", "displayname", "controllername", "controllerdisplayname", "reason");
         kickFormat = generateMessageFormat(getFormatString("kick"), "{displayname} was kicked with reason: {reason}", false,
                 "username", "displayname", "reason");
-        pmToDiscordFormat = generateMessageFormat(getFormatString("private-chat"), "[SocialSpy] {sender-username} -> {receiver-username}: {message}", false,
-                "sender-username", "sender-displayname", "receiver-username", "receiver-displayname", "message");
 
         plugin.onReload();
     }

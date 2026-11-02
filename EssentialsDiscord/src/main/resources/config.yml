@@ -144,8 +144,6 @@ message-types:
   kick: staff
   # Message sent when a player's mute state is changed on the Minecraft server.
   mute: staff
-  # Message sent when a private message (/msg, /whisper, etc.) is sent on the Minecraft Server.
-  private-chat: none
   # Message sent when a player talks in local chat.
   # use-essentials-events must be set to "true" for this to work.
   local: none
@@ -187,23 +185,6 @@ commands:
     hide-command: true
     # List of user IDs or role names/IDs allowed to use this command (or * to allow anyone to access it).
     allowed-roles:
-      - "Admins"
-      - "123456789012345678"
-  # The msg command allows for Discord users to message MC players from Discord.
-  msg:
-    # Set to false if you do not want this command to show up on the Discord command selector.
-    # You must restart your server after changing this.
-    enabled: true
-    # Whether or not the command should be hidden from other people in the channel.
-    # If set to false, members of the Discord guild will be able to see the target and content of your message.
-    hide-command: true
-    # List of user IDs or role names/IDs allowed to use this command (or '*' to allow anyone to access it).
-    allowed-roles:
-      - "*"
-    # List of user IDs or role names/IDs who can message vanished players or players who disable messages. If '*' is
-    # used, all people on Discord would be allowed to message vanished players (and therefore expose they are actually online)
-    # and message players who disable messages.
-    admin-roles:
       - "Admins"
       - "123456789012345678"
   # The list command allows Discord users to see a list of players currently online on Minecraft.
@@ -436,11 +417,3 @@ messages:
   # - {displayname}: The display name of the user who got kicked
   # - {reason}: The reason the player was kicked
   kick: "{displayname} was kicked with reason: {reason}"
-  # This is the message that is used to relay minecraft private messages in Discord.
-  # The following placeholders can be used here:
-  # - {sender-username}: The username of the player sending the message
-  # - {sender-displayname}: The display name of the player sending the message (This would be their nickname)
-  # - {receiver-username}: The username of the player receiving the message
-  # - {receiver-displayname}: The display name of the player receiving the message (This would be their nickname)
-  # - {message}: The content of the message being sent
-  pms-to-discord: "[SocialSpy] {sender-username} -> {receiver-username}: {message}"

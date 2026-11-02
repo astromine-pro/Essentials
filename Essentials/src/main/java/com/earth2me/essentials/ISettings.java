@@ -71,14 +71,6 @@ public interface ISettings extends IConf {
 
     double getHealCooldown();
 
-    Set<String> getSocialSpyCommands();
-
-    boolean getSocialSpyListenMutedPlayers();
-
-    boolean isSocialSpyMessages();
-
-    boolean isSocialSpyDisplayNames();
-
     Set<String> getMuteCommands();
 
     @Deprecated
@@ -333,15 +325,9 @@ public interface ISettings extends IConf {
 
     boolean isDropItemsIfFull();
 
-    boolean isLastMessageReplyRecipient();
-
-    boolean isReplyToVanished();
-
     BigDecimal getMinimumPayAmount();
 
     boolean isPayExcludesIgnoreList();
-
-    long getLastMessageReplyRecipientTimeout();
 
     boolean isMilkBucketEasterEggEnabled();
 

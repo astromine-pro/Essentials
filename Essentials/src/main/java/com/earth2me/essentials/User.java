@@ -7,7 +7,6 @@ import com.earth2me.essentials.craftbukkit.Inventories;
 import com.earth2me.essentials.economy.EconomyLayer;
 import com.earth2me.essentials.economy.EconomyLayers;
 import com.earth2me.essentials.messaging.IMessageRecipient;
-import com.earth2me.essentials.messaging.SimpleMessageRecipient;
 import com.earth2me.essentials.utils.DateUtil;
 import com.earth2me.essentials.utils.EnumUtil;
 import com.earth2me.essentials.utils.FormatUtil;
@@ -61,7 +60,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
     private static final Statistic PLAY_ONE_TICK = EnumUtil.getStatistic("PLAY_ONE_MINUTE", "PLAY_ONE_TICK");
 
     // User modules
-    private final IMessageRecipient messageRecipient;
     private transient final AsyncTeleport teleport;
 
     // User command confirmation strings
@@ -80,7 +78,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
     private boolean invSee = false;
     private boolean recipeSee = false;
     private boolean enderSee = false;
-    private boolean ignoreMsg = false;
     private Boolean toggleShout;
     private boolean freeze = false;
 
@@ -113,7 +110,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
         if (this.getBase().isOnline()) {
             lastOnlineActivity = System.currentTimeMillis();
         }
-        this.messageRecipient = new SimpleMessageRecipient(ess, this);
     }
 
     public void update(final Player base) {
@@ -131,7 +127,7 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
 
     @Override
     public boolean isAuthorized(final IEssentialsCommand cmd, final String permissionPrefix) {
-        return isAuthorized(permissionPrefix + (cmd.getName().equals("r") ? "msg" : cmd.getName()));
+        return isAuthorized(permissionPrefix + cmd.getName());
     }
 
     @Override
@@ -1035,16 +1031,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
     }
 
     @Override
-    public boolean isIgnoreMsg() {
-        return ignoreMsg;
-    }
-
-    @Override
-    public void setIgnoreMsg(final boolean ignoreMsg) {
-        this.ignoreMsg = ignoreMsg;
-    }
-
-    @Override
     public boolean isVanished() {
         return vanished;
     }
@@ -1164,11 +1150,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
         return tlLiteral(tlKey, args);
     }
 
-    @Override
-    public String tlSender(String tlKey, Object... args) {
-        return playerTl(tlKey, args);
-    }
-
     public Locale getPlayerLocale(final String locale) {
         if (locale == null || locale.equals(lastLocaleString)) {
             return playerLocale;
@@ -1209,31 +1190,6 @@ public class User extends UserData implements Comparable<User>, IMessageRecipien
     @Override
     public UUID getUUID() {
         return this.getBase().getUniqueId();
-    }
-
-    @Override
-    public boolean isReachable() {
-        return getBase().isOnline();
-    }
-
-    @Override
-    public MessageResponse sendMessage(final IMessageRecipient recipient, final String message) {
-        return this.messageRecipient.sendMessage(recipient, message);
-    }
-
-    @Override
-    public MessageResponse onReceiveMessage(final IMessageRecipient sender, final String message) {
-        return this.messageRecipient.onReceiveMessage(sender, message);
-    }
-
-    @Override
-    public IMessageRecipient getReplyRecipient() {
-        return this.messageRecipient.getReplyRecipient();
-    }
-
-    @Override
-    public void setReplyRecipient(final IMessageRecipient recipient) {
-        this.messageRecipient.setReplyRecipient(recipient);
     }
 
     @Override

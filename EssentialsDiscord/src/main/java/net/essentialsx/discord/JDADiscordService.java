@@ -40,7 +40,6 @@ import net.essentialsx.discord.interactions.InteractionMemberImpl;
 import net.essentialsx.discord.interactions.InteractionRoleImpl;
 import net.essentialsx.discord.interactions.commands.ExecuteCommand;
 import net.essentialsx.discord.interactions.commands.ListCommand;
-import net.essentialsx.discord.interactions.commands.MessageCommand;
 import net.essentialsx.discord.listeners.BukkitChatListener;
 import net.essentialsx.discord.listeners.BukkitListener;
 import net.essentialsx.discord.listeners.DiscordCommandDispatcher;
@@ -217,10 +216,6 @@ public class JDADiscordService implements DiscordService, IEssentialsModule {
         // Each will throw an exception if disabled
         try {
             interactionController.registerCommand(new ExecuteCommand(this));
-        } catch (InteractionException ignored) {
-        }
-        try {
-            interactionController.registerCommand(new MessageCommand(this));
         } catch (InteractionException ignored) {
         }
         try {

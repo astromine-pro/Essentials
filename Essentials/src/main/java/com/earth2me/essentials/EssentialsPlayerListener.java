@@ -524,11 +524,6 @@ public class EssentialsPlayerListener implements Listener {
             user.getBase().setWalkSpeed(0.2f);
         }
 
-        if (user.isSocialSpyEnabled() && !user.isAuthorized("essentials.socialspy")) {
-            user.setSocialSpyEnabled(false);
-            ess.getLogger().log(Level.INFO, "Set socialspy to false for {0} because they had it enabled without permission.", user.getName());
-        }
-
         if (user.isFlyModeEnabled() && !user.isAuthorized("essentials.fly")) {
             user.setFlyModeEnabled(false);
             ess.getLogger().log(Level.INFO, "Set fly mode to false for {0} because they had it enabled without permission.", user.getName());
@@ -792,26 +787,6 @@ public class EssentialsPlayerListener implements Listener {
         final Player player = event.getPlayer();
         final String cmd = effectiveCommand.split(" ")[0].replace("/", "").toLowerCase(Locale.ENGLISH);
         final PluginCommand pluginCommand = ess.getServer().getPluginCommand(cmd);
-
-        if (ess.getSettings().getSocialSpyCommands().contains(cmd) || ess.getSettings().getSocialSpyCommands().contains("*")) {
-            if (pluginCommand == null
-                || !pluginCommand.getName().equals("msg") && !pluginCommand.getName().equals("r")) { // /msg and /r are handled in SimpleMessageRecipient
-                final User user = ess.getUser(player);
-                if (!user.isAuthorized("essentials.chat.spy.exempt")) {
-                    final String playerName = ess.getSettings().isSocialSpyDisplayNames() ? player.getDisplayName() : player.getName();
-                    for (final User spyer : ess.getOnlineUsers()) {
-                        if (spyer.isSocialSpyEnabled() && !player.equals(spyer.getBase())) {
-                            final ComponentHolder base = (user.isMuted() && ess.getSettings().getSocialSpyListenMutedPlayers())
-                                    ? spyer.tlComponent("socialSpyMutedPrefix")
-                                    : spyer.tlComponent("socialSpyPrefix");
-                            final ComponentHolder formatted = ess.getAdventureFacet().deserializeMiniMessage(spyer.playerTl("socialSpyCmdFormat", playerName, event.getMessage()));
-
-                            spyer.sendComponent(ess.getAdventureFacet().append(base, formatted));
-                        }
-                    }
-                }
-            }
-        }
 
         final User user = ess.getUser(player);
         if (user.isMuted() && (ess.getSettings().getMuteCommands().contains(cmd) || ess.getSettings().getMuteCommands().contains("*"))) {
@@ -1261,7 +1236,7 @@ public class EssentialsPlayerListener implements Listener {
                     final PluginCommand command = ess.getServer().getPluginCommand(label);
                     if (!checked.contains(command)) {
                         checked.add(command);
-                        if (!user.isAuthorized(command.getName().equals("r") ? "essentials.msg" : "essentials." + command.getName())) {
+                        if (!user.isAuthorized("essentials." + command.getName())) {
                             toRemove.add(command);
                         }
                     }

@@ -242,16 +242,6 @@ public class UserConfigHolder {
         this.geolocation = value;
     }
 
-    private boolean socialspy = false;
-
-    public boolean socialSpy() {
-        return this.socialspy;
-    }
-
-    public void socialSpy(final boolean value) {
-        this.socialspy = value;
-    }
-
     private boolean npc = false;
 
     public boolean npc() {
@@ -320,16 +310,6 @@ public class UserConfigHolder {
 
     public void confirmClear(final Boolean value) {
         this.confirmClear = value;
-    }
-
-    private @Nullable Boolean lastMessageReplyRecipient;
-
-    public Boolean lastMessageReplyRecipient() {
-        return this.lastMessageReplyRecipient;
-    }
-
-    public void lastMessageReplyRecipient(final Boolean value) {
-        this.lastMessageReplyRecipient = value;
     }
 
     private boolean baltopExempt = false;
