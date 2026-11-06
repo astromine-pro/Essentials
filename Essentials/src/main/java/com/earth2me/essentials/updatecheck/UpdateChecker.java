@@ -223,6 +223,9 @@ public final class UpdateChecker {
                 }
                 case AHEAD:
                 case DIVERGED: {
+                    if (latestDev.getDistance() == 0 && !sendLatestMessage) {
+                        return new ComponentHolder[] {};
+                    }
                     return new ComponentHolder[] {source.tlComponent(latestDev.getDistance() == 0 ? "versionDevDivergedLatest" : "versionDevDiverged", latestDev.getDistance()),
                             source.tlComponent("versionDevDivergedBranch", this.getVersionBranch()) };
                 }
